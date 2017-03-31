@@ -19,12 +19,12 @@ iOS安全，App加固保护原理
 
 #
 #### 字符串加密 
-* [字符串加密Demo](https://github.com/theKF/StringScurityDemo)
-字符串会暴露APP的很多关键信息，攻击者可以根据界面显示的字符串，快速找到相关逻辑的处理函数，从而进行分析破解。加密字符串可以增加攻击者阅读代码的难度以及根据字符串静态搜索的难度。
+* [字符串加密Demo](https://github.com/theKF/StringScurityDemo)<br>
+字符串会暴露APP的很多关键信息，攻击者可以根据界面显示的字符串，快速找到相关逻辑的处理函数，从而进行分析破解。加密字符串可以增加攻击者阅读代码的难度以及根据字符串静态搜索的难度。<br><br>
 
 比如一个APP中有如下的一些字符串定义在代码文件中：
-![](https://github.com/theKF/IOSSecurity/blob/master/myfilexxx.png)
-经过加密后，代码文件变成如下的形式：
-![](https://github.com/theKF/IOSSecurity/blob/master/staticvoid.png)
-里面已经没有明文的字符串了，全是用byte的形式保存的，打包生成APP后，他们也就无法直观的看出实际内容了,这对破解者会造成巨大的难度：
-![](https://github.com/theKF/IOSSecurity/blob/master/tagscope.png)
+![](https://github.com/theKF/IOSSecurity/blob/master/myfilexxx.png)<br>
+经过加密后，代码文件变成如下的形式：<br>
+![](https://github.com/theKF/IOSSecurity/blob/master/staicvoid.png)<br>
+里面已经没有明文的字符串了，全是用byte的形式保存的，打包生成APP后，他们也就无法直观的看出实际内容了,这对破解者会造成巨大的难度：<br>
+![](https://github.com/theKF/IOSSecurity/blob/master/tagscope.png)<br>
