@@ -35,7 +35,7 @@ iOS安全，App加固保护原理
 符号混淆的中心思想是将类名、方法名、变量名替换为无意义符号，提高应用安全性；防止敏感符号被class-dump工具提取，防止IDA Pro等工具反编译后分析业务代码。
 <br>
 比如一款混淆后的APP,用IDA等工具打开，如下图所示:<br>
-![](https://github.com/theKF/IOSSecurity/blob/master/entrypoint.png)<br>
+![](https://github.com/theKF/IOSSecurity/blob/master/entrypoint.png) <br>
 “Labels”栏里，显示的这些符号，不管是类名还是方法名，谁也看不出来到底什么意思，这个函数到底是什么功能，就有点丈二和尚摸不着头脑的感觉，这就大大增加了破解者分析APP的难度。
 
 #
