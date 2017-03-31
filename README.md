@@ -31,9 +31,53 @@ iOS安全，App加固保护原理
 
 #
 #### 符号混淆
-* [方法名，变量名混淆Demo]()<br>
+* [方法名，变量名混淆Demo](https://github.com/theKF/SymbolConfusionDemo)<br>
 符号混淆的中心思想是将类名、方法名、变量名替换为无意义符号，提高应用安全性；防止敏感符号被class-dump工具提取，防止IDA Pro等工具反编译后分析业务代码。
 <br>
 比如一款混淆后的APP,用IDA等工具打开，如下图所示:<br>
 ![](https://github.com/theKF/IOSSecurity/blob/master/entrypoint.png)<br>
 “Labels”栏里，显示的这些符号，不管是类名还是方法名，谁也看不出来到底什么意思，这个函数到底是什么功能，就有点丈二和尚摸不着头脑的感觉，这就大大增加了破解者分析APP的难度。
+
+#
+#### 代码逻辑混淆
+代码逻辑混淆有以下几个方面的含义：
+
+对方法体进行混淆，保证源码被逆向后该部分的代码有很大的迷惑性，因为有一些垃圾代码的存在；
+
+对应用程序逻辑结构进行打乱混排，保证源码可读性降到最低，这很容易把破解者带到沟里去；
+
+它拥有和原始的代码一样的功能，这是最最关键的。
+
+混淆前后的对比如下（左边是原始结构，右边是混淆后的结构）：
+![](https://github.com/theKF/IOSSecurity/blob/master/xxxxxxxxx.png)<br>
+下面以iOS APP中的main函数为例：
+![](https://github.com/theKF/IOSSecurity/blob/master/initmain.png)<br>
+
+它就只有一行有效代码，包含两个关键函数，已经算最简单的函数体了，混淆前的汇编代码如下：
+![](https://github.com/theKF/IOSSecurity/blob/master/entrypoint.png)<br>
+
+这里主要包含两个API的符号: NSStringFromClass、UIApplicationMain。其余就是一些消息发送以及内存管理的相关符号，但如果进行一定的代码逻辑混淆后，这个结构就会变得大不一样了。
+![](https://github.com/theKF/IOSSecurity/blob/master/xxxxxxxxxyy.png)<br>
+NSStringFromClass、UIApplicationMain这两个函数，逻辑结构已经变得非常复杂了，如果一个函数中，包含更多的代码的话，那这个结构将更加复杂，对破解者来说将是一个很耗时间、精力的过程，一般早早就会放弃分析了。
+
+#
+### URL编码加密
+对程序中出现的URL进行编码加密，防止URL被静态分析。
+
+#
+### 网络传输数据加密
+对客户端传输数据提供加密方案，防止通过网络接口的拦截获取数据。
+
+#
+### 主动保护策略
+除了上面的一些被动保护方法，我们还可以加入一些主动的防护机制，比如反调试等。
+
+iOS平台下的Anti-Debug方法一般有以下一些：
+
+检查进程的状态是否为 P_TRACED。
+调用ptrace请求来检查进程是否被调试。由于可能被攻击者绕过该方法的调用，在应用的多处增加ptrace函数会提高应用的安全性。
+通过sysctl查看信息进程里的标记，判断自己是否正在被调试。sysctl是用以查询内核状态的接口，并允许具备相应权限的进程设置内核状态。
+
+
+
+
